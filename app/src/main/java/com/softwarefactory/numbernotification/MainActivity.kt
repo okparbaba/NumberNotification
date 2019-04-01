@@ -1,5 +1,6 @@
 package com.softwarefactory.numbernotification
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -7,12 +8,14 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.card_layout.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mImageBtn: ImageButton
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private  var mContext: Context = this@MainActivity
     private lateinit var mMyTollbar: Toolbar
     private lateinit var mPlusBtn: Button
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,14 +37,24 @@ class MainActivity : AppCompatActivity() {
         mPlusBtn = findViewById(R.id.plus_btn)
         mActivityTv = findViewById(R.id.activity_tv)
 
-        mPlusBtn.setOnClickListener { doIncrement() }
+        mPlusBtn.setOnClickListener {
+            count_tv_layout.visibility = View.VISIBLE
+            doIncrement()
+        }
+
         minus_btn.setOnClickListener { doDecrement() }
     }
 
     private fun doDecrement() {
-        mCount--
-        mCountTv.text = mCount.toString()
-        mActivityTv.text = mCount.toString()
+
+            mActivityTv.text = mCount.toString()
+            mCountTv.text = mCount.toString()
+        if (mCount>0){
+            mCount--
+        }
+        if (mCount<=0){
+            count_tv_layout.visibility = View.GONE
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -61,8 +75,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doIncrement() {
-        mCount++
-        mCountTv.text = mCount.toString()
-        mActivityTv.text = mCount.toString()
+            mCount++
+            mCountTv.text = mCount.toString()
+            mActivityTv.text = mCount.toString()
+
     }
 }
