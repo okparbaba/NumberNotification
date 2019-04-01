@@ -12,16 +12,17 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    internal var mImageBtn: ImageButton
-    internal var mActivityTv: TextView
-    internal var mCountTv: TextView
-    internal var mCartIconMenuItem: MenuItem
-    internal var mCount = 0
-    internal var mContext: Context = this@MainActivity
-    internal var mMyTollbar: Toolbar
-    internal var mPlusBtn: Button
+    private lateinit var mImageBtn: ImageButton
+    private lateinit var mActivityTv: TextView
+    private lateinit var mCountTv: TextView
+    private lateinit var mCartIconMenuItem: MenuItem
+    private  var mCount = 0
+    private  var mContext: Context = this@MainActivity
+    private lateinit var mMyTollbar: Toolbar
+    private lateinit var mPlusBtn: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,6 +34,13 @@ class MainActivity : AppCompatActivity() {
         mActivityTv = findViewById(R.id.activity_tv)
 
         mPlusBtn.setOnClickListener { doIncrement() }
+        minus_btn.setOnClickListener { doDecrement() }
+    }
+
+    private fun doDecrement() {
+        mCount--
+        mCountTv.text = mCount.toString()
+        mActivityTv.text = mCount.toString()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
